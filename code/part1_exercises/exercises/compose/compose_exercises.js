@@ -15,27 +15,29 @@ var CARS = [
 // Exercise 1:
 // ============
 // use _.compose() to rewrite the function below. Hint: _.prop() is curried.
-var isLastInStock = function(cars) {
-  var reversed_cars = _.last(cars);
-  return _.prop('in_stock', reversed_cars)
-};
+// var isLastInStock = function(cars) {
+//   var reversed_cars = _.last(cars);
+//   return _.prop('in_stock', reversed_cars)
+// };
+
+var isLastInStock = _.compose(_.prop('in_stock'), _.last);
 
 // Exercise 2:
 // ============
 // use _.compose(), _.prop() and _.head() to retrieve the name of the first car
-var nameOfFirstCar = undefined;
-
+var nameOfFirstCar = _.compose(_.prop('name'), _.head);
 
 // Exercise 3:
 // ============
 // Use the helper function _average to refactor averageDollarValue as a composition
 var _average = function(xs) { return reduce(add, 0, xs) / xs.length; }; // <- leave be
 
-var averageDollarValue = function(cars) {
-  var dollar_values = map(function(c) { return c.dollar_value; }, cars);
-  return _average(dollar_values);
-};
+// var averageDollarValue = function(cars) {
+//   var dollar_values = map(function(c) { return c.dollar_value; }, cars);
+//   return _average(dollar_values);
+// };
 
+var averageDollarValue = _.compose(_average, _.map(_.prop('dollar_value')));
 
 // Exercise 4:
 // ============
